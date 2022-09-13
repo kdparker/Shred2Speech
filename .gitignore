@@ -1,0 +1,6 @@
+venv/*
+secrets/*
+*.pyc
+.DS_STORE
+.idea/*
+.mypy_chache/*
