@@ -51,6 +51,6 @@ sound_dict = {
 }
 
 
-def play_sound(key: int) -> None:
+def play_sound(key: int, blocking=False) -> None:
     if key in sound_dict:
-        playsound(sound_dict[key], False)
+        playsound(sound_dict[key], blocking)
