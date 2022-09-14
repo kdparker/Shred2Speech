@@ -4,3 +4,4 @@ secrets/*
 .DS_STORE
 .idea/*
 .mypy_chache/*
+sounds/desktop.ini
