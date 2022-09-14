@@ -45,10 +45,11 @@ sound_dict = {
     44: "sounds/w.wav",
     52: "sounds/l.wav",
     56: "sounds/s.wav",
-    39: "sounds/m.wav", 
-    43: "sounds/n.wav", 
-    45: "sounds/ng.wav"  
+    39: "sounds/m.wav",
+    43: "sounds/n.wav",
+    45: "sounds/ng.wav",
 }
+
 
 def play_sound(key: int) -> None:
     if key in sound_dict:

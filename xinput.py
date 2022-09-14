@@ -24,33 +24,36 @@ from pyglet import event
 
 class XINPUT_GAMEPAD(ctypes.Structure):
     _fields_ = [
-        ('buttons', ctypes.c_ushort),  # wButtons
-        ('left_trigger', ctypes.c_ubyte),  # bLeftTrigger
-        ('right_trigger', ctypes.c_ubyte),  # bLeftTrigger
-        ('l_thumb_x', ctypes.c_short),  # sThumbLX
-        ('l_thumb_y', ctypes.c_short),  # sThumbLY
-        ('r_thumb_x', ctypes.c_short),  # sThumbRx
-        ('r_thumb_y', ctypes.c_short),  # sThumbRy
+        ("buttons", ctypes.c_ushort),  # wButtons
+        ("left_trigger", ctypes.c_ubyte),  # bLeftTrigger
+        ("right_trigger", ctypes.c_ubyte),  # bLeftTrigger
+        ("l_thumb_x", ctypes.c_short),  # sThumbLX
+        ("l_thumb_y", ctypes.c_short),  # sThumbLY
+        ("r_thumb_x", ctypes.c_short),  # sThumbRx
+        ("r_thumb_y", ctypes.c_short),  # sThumbRy
     ]
 
 
 class XINPUT_STATE(ctypes.Structure):
     _fields_ = [
-        ('packet_number', ctypes.c_ulong),  # dwPacketNumber
-        ('gamepad', XINPUT_GAMEPAD),  # Gamepad
+        ("packet_number", ctypes.c_ulong),  # dwPacketNumber
+        ("gamepad", XINPUT_GAMEPAD),  # Gamepad
     ]
 
 
 class XINPUT_VIBRATION(ctypes.Structure):
-    _fields_ = [("wLeftMotorSpeed", ctypes.c_ushort),
-                ("wRightMotorSpeed", ctypes.c_ushort)]
+    _fields_ = [
+        ("wLeftMotorSpeed", ctypes.c_ushort),
+        ("wRightMotorSpeed", ctypes.c_ushort),
+    ]
+
 
 class XINPUT_BATTERY_INFORMATION(ctypes.Structure):
-    _fields_ = [("BatteryType", ctypes.c_ubyte),
-                ("BatteryLevel", ctypes.c_ubyte)]
+    _fields_ = [("BatteryType", ctypes.c_ubyte), ("BatteryLevel", ctypes.c_ubyte)]
+
 
 xinput = ctypes.windll.xinput1_4
-#xinput = ctypes.windll.xinput9_1_0  # this is the Win 8 version ?
+# xinput = ctypes.windll.xinput9_1_0  # this is the Win 8 version ?
 # xinput1_2, xinput1_1 (32-bit Vista SP1)
 # xinput1_3 (64-bit Vista SP1)
 
@@ -64,8 +67,7 @@ def struct_dict(struct):
     >>> struct_dict(XINPUT_GAMEPAD)['buttons'].__class__.__name__
     'CField'
     """
-    get_pair = lambda field_type: (
-        field_type[0], getattr(struct, field_type[0]))
+    get_pair = lambda field_type: (field_type[0], getattr(struct, field_type[0]))
     return dict(list(map(get_pair, struct._fields_)))
 
 
@@ -100,6 +102,7 @@ def gen_bit_values(number):
         yield number & 0x1
         number >>= 1
 
+
 ERROR_DEVICE_NOT_CONNECTED = 1167
 ERROR_SUCCESS = 0
 
@@ -113,11 +116,12 @@ class XInputJoystick(event.EventDispatcher):
     Example:
     controller_one = XInputJoystick(0)
     """
+
     max_devices = 4
 
     def __init__(self, device_number, normalize_axes=True):
         values = vars()
-        del values['self']
+        del values["self"]
         self.__dict__.update(values)
 
         super(XInputJoystick, self).__init__()
@@ -135,7 +139,7 @@ class XInputJoystick(event.EventDispatcher):
         # normalizes analog data to [0,1] for unsigned data
         #  and [-0.5,0.5] for signed data
         data_bits = 8 * data_size
-        return float(value) / (2 ** data_bits - 1)
+        return float(value) / (2**data_bits - 1)
 
     def translate_identity(self, value, data_size=None):
         return value
@@ -148,7 +152,9 @@ class XInputJoystick(event.EventDispatcher):
             return state
         if res != ERROR_DEVICE_NOT_CONNECTED:
             raise RuntimeError(
-                "Unknown error %d attempting to get state of device %d" % (res, self.device_number))
+                "Unknown error %d attempting to get state of device %d"
+                % (res, self.device_number)
+            )
         # else return None (device is not connected)
 
     def is_connected(self):
@@ -157,8 +163,7 @@ class XInputJoystick(event.EventDispatcher):
     @staticmethod
     def enumerate_devices():
         "Returns the devices that are connected"
-        devices = list(
-            map(XInputJoystick, list(range(XInputJoystick.max_devices))))
+        devices = list(map(XInputJoystick, list(range(XInputJoystick.max_devices))))
         return [d for d in devices if d.is_connected()]
 
     def set_vibration(self, left_motor, right_motor):
@@ -168,8 +173,7 @@ class XInputJoystick(event.EventDispatcher):
         XInputSetState.argtypes = [ctypes.c_uint, ctypes.POINTER(XINPUT_VIBRATION)]
         XInputSetState.restype = ctypes.c_uint
 
-        vibration = XINPUT_VIBRATION(
-            int(left_motor * 65535), int(right_motor * 65535))
+        vibration = XINPUT_VIBRATION(int(left_motor * 65535), int(right_motor * 65535))
         XInputSetState(self.device_number, ctypes.byref(vibration))
 
     def get_battery_information(self):
@@ -178,22 +182,32 @@ class XInputJoystick(event.EventDispatcher):
         BATTERY_DEVTYPE_HEADSET = 0x01
         # Set up function argument types and return type
         XInputGetBatteryInformation = xinput.XInputGetBatteryInformation
-        XInputGetBatteryInformation.argtypes = [ctypes.c_uint, ctypes.c_ubyte, ctypes.POINTER(XINPUT_BATTERY_INFORMATION)]
-        XInputGetBatteryInformation.restype = ctypes.c_uint 
+        XInputGetBatteryInformation.argtypes = [
+            ctypes.c_uint,
+            ctypes.c_ubyte,
+            ctypes.POINTER(XINPUT_BATTERY_INFORMATION),
+        ]
+        XInputGetBatteryInformation.restype = ctypes.c_uint
 
-        battery = XINPUT_BATTERY_INFORMATION(0,0)
-        XInputGetBatteryInformation(self.device_number, BATTERY_DEVTYPE_GAMEPAD, ctypes.byref(battery))
+        battery = XINPUT_BATTERY_INFORMATION(0, 0)
+        XInputGetBatteryInformation(
+            self.device_number, BATTERY_DEVTYPE_GAMEPAD, ctypes.byref(battery)
+        )
 
-        #define BATTERY_TYPE_DISCONNECTED       0x00
-        #define BATTERY_TYPE_WIRED              0x01
-        #define BATTERY_TYPE_ALKALINE           0x02
-        #define BATTERY_TYPE_NIMH               0x03
-        #define BATTERY_TYPE_UNKNOWN            0xFF
-        #define BATTERY_LEVEL_EMPTY             0x00
-        #define BATTERY_LEVEL_LOW               0x01
-        #define BATTERY_LEVEL_MEDIUM            0x02
-        #define BATTERY_LEVEL_FULL              0x03
-        batt_type = "Unknown" if battery.BatteryType == 0xFF else ["Disconnected", "Wired", "Alkaline","Nimh"][battery.BatteryType]
+        # define BATTERY_TYPE_DISCONNECTED       0x00
+        # define BATTERY_TYPE_WIRED              0x01
+        # define BATTERY_TYPE_ALKALINE           0x02
+        # define BATTERY_TYPE_NIMH               0x03
+        # define BATTERY_TYPE_UNKNOWN            0xFF
+        # define BATTERY_LEVEL_EMPTY             0x00
+        # define BATTERY_LEVEL_LOW               0x01
+        # define BATTERY_LEVEL_MEDIUM            0x02
+        # define BATTERY_LEVEL_FULL              0x03
+        batt_type = (
+            "Unknown"
+            if battery.BatteryType == 0xFF
+            else ["Disconnected", "Wired", "Alkaline", "Nimh"][battery.BatteryType]
+        )
         level = ["Empty", "Low", "Medium", "Full"][battery.BatteryLevel]
         return batt_type, level
 
@@ -201,8 +215,7 @@ class XInputJoystick(event.EventDispatcher):
         "The main event loop for a joystick"
         state = self.get_state()
         if not state:
-            raise RuntimeError(
-                "Joystick %d is not connected" % self.device_number)
+            raise RuntimeError("Joystick %d is not connected" % self.device_number)
         if state.packet_number != self._last_state.packet_number:
             # state has changed, handle the change
             self.update_packet_count(state)
@@ -212,22 +225,21 @@ class XInputJoystick(event.EventDispatcher):
     def update_packet_count(self, state):
         "Keep track of received and missed packets for performance tuning"
         self.received_packets += 1
-        missed_packets = state.packet_number - \
-            self._last_state.packet_number - 1
+        missed_packets = state.packet_number - self._last_state.packet_number - 1
         if missed_packets:
-            self.dispatch_event('on_missed_packet', missed_packets)
+            self.dispatch_event("on_missed_packet", missed_packets)
         self.missed_packets += missed_packets
 
     def handle_changed_state(self, state):
         "Dispatch various events as a result of the state changing"
-        self.dispatch_event('on_state_changed', state)
+        self.dispatch_event("on_state_changed", state)
         self.dispatch_axis_events(state)
         self.dispatch_button_events(state)
 
     def dispatch_axis_events(self, state):
         # axis fields are everything but the buttons
         axis_fields = dict(XINPUT_GAMEPAD._fields_)
-        axis_fields.pop('buttons')
+        axis_fields.pop("buttons")
         for axis, type in list(axis_fields.items()):
             old_val = getattr(self._last_state.gamepad, axis)
             new_val = getattr(state.gamepad, axis)
@@ -238,9 +250,19 @@ class XInputJoystick(event.EventDispatcher):
             # an attempt to add deadzones and dampen noise
             # done by feel rather than following http://msdn.microsoft.com/en-gb/library/windows/desktop/ee417001%28v=vs.85%29.aspx#dead_zone
             # ags, 2014-07-01
-            if ((old_val != new_val and (new_val > 0.08000000000000000 or new_val < -0.08000000000000000) and abs(old_val - new_val) > 0.00000000500000000) or
-               (axis == 'right_trigger' or axis == 'left_trigger') and new_val == 0 and abs(old_val - new_val) > 0.00000000500000000):
-                self.dispatch_event('on_axis', axis, new_val)
+            if (
+                (
+                    old_val != new_val
+                    and (
+                        new_val > 0.08000000000000000 or new_val < -0.08000000000000000
+                    )
+                    and abs(old_val - new_val) > 0.00000000500000000
+                )
+                or (axis == "right_trigger" or axis == "left_trigger")
+                and new_val == 0
+                and abs(old_val - new_val) > 0.00000000500000000
+            ):
+                self.dispatch_event("on_axis", axis, new_val)
 
     def dispatch_button_events(self, state):
         changed = state.gamepad.buttons ^ self._last_state.gamepad.buttons
@@ -250,11 +272,12 @@ class XInputJoystick(event.EventDispatcher):
         buttons_state.reverse()
         button_numbers = count(1)
         changed_buttons = list(
-            filter(itemgetter(0), list(zip(changed, button_numbers, buttons_state))))
+            filter(itemgetter(0), list(zip(changed, button_numbers, buttons_state)))
+        )
         tuple(starmap(self.dispatch_button_event, changed_buttons))
 
     def dispatch_button_event(self, changed, number, pressed):
-        self.dispatch_event('on_button', number, pressed)
+        self.dispatch_event("on_button", number, pressed)
 
     # stub methods for event handlers
     def on_state_changed(self, state):
@@ -269,12 +292,18 @@ class XInputJoystick(event.EventDispatcher):
     def on_missed_packet(self, number):
         pass
 
-list(map(XInputJoystick.register_event_type, [
-    'on_state_changed',
-    'on_axis',
-    'on_button',
-    'on_missed_packet',
-]))
+
+list(
+    map(
+        XInputJoystick.register_event_type,
+        [
+            "on_state_changed",
+            "on_axis",
+            "on_button",
+            "on_missed_packet",
+        ],
+    )
+)
 
 
 def determine_optimal_sample_rate(joystick=None):
@@ -303,16 +332,16 @@ def determine_optimal_sample_rate(joystick=None):
     # begin at 1Hz and work up until missed messages are eliminated
     j.probe_frequency = 1  # Hz
     j.quit = False
-    j.target_reliability = .99  # okay to lose 1 in 100 messages
+    j.target_reliability = 0.99  # okay to lose 1 in 100 messages
 
     @j.event
     def on_button(button, pressed):
         # flag the process to quit if the < button ('back') is pressed.
-        j.quit = (button == 6 and pressed)
+        j.quit = button == 6 and pressed
 
     @j.event
     def on_missed_packet(number):
-        print('missed %(number)d packets' % vars())
+        print("missed %(number)d packets" % vars())
         total = j.received_packets + j.missed_packets
         reliability = j.received_packets / float(total)
         if reliability < j.target_reliability:
@@ -331,22 +360,22 @@ def sample_first_joystick():
     L & R analogue triggers set the vibration motor speed.
     """
     joysticks = XInputJoystick.enumerate_devices()
-    device_numbers = list(map(attrgetter('device_number'), joysticks))
+    device_numbers = list(map(attrgetter("device_number"), joysticks))
 
-    print('found %d devices: %s' % (len(joysticks), device_numbers))
+    print("found %d devices: %s" % (len(joysticks), device_numbers))
 
     if not joysticks:
         sys.exit(0)
 
     j = joysticks[0]
-    print('using %d' % j.device_number)
+    print("using %d" % j.device_number)
 
     battery = j.get_battery_information()
     print(battery)
 
     @j.event
     def on_button(button, pressed):
-        print('button', button, pressed)
+        print("button", button, pressed)
 
     left_speed = 0
     right_speed = 0
@@ -356,7 +385,7 @@ def sample_first_joystick():
         left_speed = 0
         right_speed = 0
 
-        print('axis', axis, value)
+        print("axis", axis, value)
         if axis == "left_trigger":
             left_speed = value
         elif axis == "right_trigger":
@@ -365,7 +394,8 @@ def sample_first_joystick():
 
     while True:
         j.dispatch_events()
-        time.sleep(.01)
+        time.sleep(0.01)
+
 
 if __name__ == "__main__":
     sample_first_joystick()

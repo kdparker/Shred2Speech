@@ -1,9 +1,9 @@
-
 from xinput import XInputJoystick
 
 from guitar import Guitar
 
 import sys
+
 
 def run():
     joysticks: list[XInputJoystick] = XInputJoystick.enumerate_devices()

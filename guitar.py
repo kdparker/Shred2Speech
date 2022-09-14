@@ -2,6 +2,7 @@ from collections import OrderedDict
 from dataclasses import dataclass
 from sound import play_sound
 
+
 @dataclass
 class Button:
     color: str
@@ -32,10 +33,14 @@ class Guitar:
         ) + ("⬇" if strummed_down else "⬆")
 
     def get_numeric_value_for_input(self, key: int) -> int:
-        strum_binary_value = "1" if key == 1 else "0" # strum down results in "lower" values
+        strum_binary_value = (
+            "1" if key == 1 else "0"
+        )  # strum down results in "lower" values
         buttons_binary_value = "".join(
             str(button.held) for button in self.held_buttons.values()
-        )[::-1] # reversing so that "green" is least significant digit
+        )[
+            ::-1
+        ]  # reversing so that "green" is least significant digit
         return int(strum_binary_value + buttons_binary_value, 2)
 
     def strum(self, key: int, pressed: int):
@@ -45,4 +50,3 @@ class Guitar:
         output = "{} - {}".format(numeric_value, self.text_output_for_input(key == 2))
         play_sound(numeric_value)
         print(output)
-        
