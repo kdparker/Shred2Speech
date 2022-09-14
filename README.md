@@ -13,6 +13,8 @@
 |ɔ|Talk, law, bored, yawn, jaw.|🟢🔵⬇|9
 |u|Few, boot, lose, gloomy, fruit, chew.|🟢🟠⬇|17
 |ɑ|Fast, car, hard, bath.|🔴🟡⬇|6
+|ɪ|Kit, Bit, Chip|🟢🔴🟡🔵⬇|15
+|oʊ|Hello|🔴🟡🔵🟠⬇|30
 |ɪə|Near, ear, clear, tear, beer, fear|🔴🔵⬇|10
 |eə|Hair, there, care, stairs, pear|🔴🟠⬇|18
 |eɪ|Face, space, rain , case, eight|🟡🔵⬇|12
@@ -20,7 +22,6 @@
 |aɪ|My, sight, pride, kind, flight|🔵🟠⬇|24
 |əʊ|No, don’t, stones, alone, hole|🟢🔴🟡⬇|7
 |aʊ|Mouth, house, brown, cow, out|🟢🔴🔵⬇|11
-|ɪ|Kit, Bit, Chip|🟢🔴🟡🔵⬇|15
 |f|Full, Friday, fish, knife.|🟢🟡🔵⬇|13
 |v|Vest, village, view, cave.|🔴🟡🔵⬇|14
 |θ|Thought, think, Bath.|🔴🟡🟠⬇|22
