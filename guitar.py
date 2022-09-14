@@ -21,18 +21,12 @@ class Guitar:
             }
         )
 
-    def button_update(self, key: int, pressed: int):
-        if key not in self.held_buttons:
-            return
-        button: Button = self.held_buttons[key]
-        button.held = pressed
-
-    def text_output_for_input(self, strummed_down: bool) -> str:
+    def _text_output_for_input(self, strummed_down: bool) -> str:
         return "".join(
             button.color if button.held else "" for button in self.held_buttons.values()
         ) + ("⬇" if strummed_down else "⬆")
 
-    def get_numeric_value_for_input(self, key: int) -> int:
+    def _get_numeric_value_for_input(self, key: int) -> int:
         strum_binary_value = (
             "1" if key == 1 else "0"
         )  # strum down results in "lower" values
@@ -43,10 +37,16 @@ class Guitar:
         ]  # reversing so that "green" is least significant digit
         return int(strum_binary_value + buttons_binary_value, 2)
 
+    def button_update(self, key: int, pressed: int):
+        if key not in self.held_buttons:
+            return
+        button: Button = self.held_buttons[key]
+        button.held = pressed
+
     def strum(self, key: int, pressed: int):
         if not pressed or key not in (1, 2):
             return
-        numeric_value = self.get_numeric_value_for_input(key)
-        output = "{} - {}".format(numeric_value, self.text_output_for_input(key == 2))
+        numeric_value = self._get_numeric_value_for_input(key)
+        output = "{} - {}".format(numeric_value, self._text_output_for_input(key == 2))
         play_sound(numeric_value)
         print(output)
