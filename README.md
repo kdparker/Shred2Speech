@@ -8,11 +8,11 @@
 |ʊ|Put, look, should, cook, book, look.|🟡⬇|4
 |ɒ|Rob, top, watch, squat, sausage.|🔵⬇|8
 |ə|Alive, again, mother.|🟠⬇|16
-|i:|Need, beat, team.|🟢🔴⬇|3
-|ɜ:|Nurse, heard, third, turn.|🟢🟡⬇|5
-|ɔ:|Talk, law, bored, yawn, jaw.|🟢🔵⬇|9
-|u:|Few, boot, lose, gloomy, fruit, chew.|🟢🟠⬇|17
-|ɑ:|Fast, car, hard, bath.|🔴🟡⬇|6
+|i|Need, beat, team.|🟢🔴⬇|3
+|ɜ|Nurse, heard, third, turn.|🟢🟡⬇|5
+|ɔ|Talk, law, bored, yawn, jaw.|🟢🔵⬇|9
+|u|Few, boot, lose, gloomy, fruit, chew.|🟢🟠⬇|17
+|ɑ|Fast, car, hard, bath.|🔴🟡⬇|6
 |ɪə|Near, ear, clear, tear, beer, fear|🔴🔵⬇|10
 |eə|Hair, there, care, stairs, pear|🔴🟠⬇|18
 |eɪ|Face, space, rain , case, eight|🟡🔵⬇|12
@@ -20,6 +20,7 @@
 |aɪ|My, sight, pride, kind, flight|🔵🟠⬇|24
 |əʊ|No, don’t, stones, alone, hole|🟢🔴🟡⬇|7
 |aʊ|Mouth, house, brown, cow, out|🟢🔴🔵⬇|11
+|ɪ|Kit, Bit, Chip|🟢🔴🟡🔵⬇|15
 |f|Full, Friday, fish, knife.|🟢🟡🔵⬇|13
 |v|Vest, village, view, cave.|🔴🟡🔵⬇|14
 |θ|Thought, think, Bath.|🔴🟡🟠⬇|22
@@ -39,5 +40,8 @@
 |r|Road, roses, river, ring, ride.|🔴🔵⬆|42
 |j|Yellow, usual, tune, yesterday, yard.|🔴🟠⬆|50
 |w|Wall, walk, wine, world.|🟡🔵⬆|44
-|l and ɫ|Law, lots, leap, long, pill, cold, chill,|🟡🟠⬆|52
-
+|l|Law, lots, leap, long, pill, cold, chill,|🟡🟠⬆|52
+|s|Sit, Sap|🔵🟠⬆|56
+|m|Tim|🟢🔴🟡⬆|39
+|n|Tin|🟢🔴🔵⬆|43
+|ng|Ting|🟢🟡🔵⬆|45

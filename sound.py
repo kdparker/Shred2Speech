@@ -14,6 +14,7 @@ sound_dict = {
     9: ["sounds/mirror_c.wav"],
     17: ["sounds/u.wav"],
     6: ["sounds/weird_a.wav"],
+    15: ["sounds/capital_I.wav"],
     10: ["sounds/capital_I.wav", "sounds/upside_down_e.wav"],
     18: ["sounds/e.wav", "sounds/upside_down_e.wav"],
     12: ["sounds/e.wav", "sounds/capital_I.wav"],
@@ -41,6 +42,10 @@ sound_dict = {
     50: ["sounds/j.wav"],
     44: ["sounds/w.wav"],
     52: ["sounds/l.wav"],
+    56: ["sounds/s.wav"],
+    39: ["sounds/m.wav"], 
+    43: ["sounds/n.wav"], 
+    45: ["sounds/ng.wav"]  
 }
 
 def play_sound(key: int) -> None:
