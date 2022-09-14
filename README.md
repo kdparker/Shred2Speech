@@ -2,6 +2,9 @@
 
 A speech synthesizer based on a guitar hero controller. Requires a 360 X-Plorer Controller on a windows machine to make work.
 
+Xinput from https://github.com/r4dian/Xbox-Controller-for-Python/blob/master/xinput.py
+Sounds taken and edited from http://www.phonetics.ucla.edu/course/chapter1/chapter1.html and wikipedia
+
 ## IPA to Guitar
 
 |Symbol |Examples |Chart |#|
