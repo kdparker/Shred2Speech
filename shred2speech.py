@@ -17,6 +17,8 @@ def run():
     def on_button(button, pressed):
         guitar.button_update(button, pressed)
         guitar.strum(button, pressed)
+        guitar.clear_store(button, pressed)
+        guitar.play_store(button, pressed)
 
     print("Ready to Rock!")
 

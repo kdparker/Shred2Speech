@@ -20,6 +20,7 @@ class Guitar:
                 9: Button("🟠"),
             }
         )
+        self.stored_sounds = []
 
     def _text_output_for_input(self, strummed_down: bool) -> str:
         return "".join(
@@ -37,16 +38,29 @@ class Guitar:
         ]  # reversing so that "green" is least significant digit
         return int(strum_binary_value + buttons_binary_value, 2)
 
-    def button_update(self, key: int, pressed: int):
+    def button_update(self, key: int, pressed: int) -> None:
         if key not in self.held_buttons:
             return
         button: Button = self.held_buttons[key]
         button.held = pressed
 
-    def strum(self, key: int, pressed: int):
+    def strum(self, key: int, pressed: int) -> None:
         if not pressed or key not in (1, 2):
             return
         numeric_value = self._get_numeric_value_for_input(key)
         output = "{} - {}".format(numeric_value, self._text_output_for_input(key == 2))
         play_sound(numeric_value)
+        self.stored_sounds.append(numeric_value)
         print(output)
+
+    def clear_store(self, key: int, pressed: int) -> None:
+        if not pressed or key != 5:
+            return
+        self.stored_sounds = []
+
+    def play_store(self, key: int, pressed: int) -> None:
+        if not pressed or key != 6:
+            return
+        for sound in self.stored_sounds:
+            play_sound(sound, True)
+        self.clear_store(5, 1)
