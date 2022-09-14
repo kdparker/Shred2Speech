@@ -35,8 +35,8 @@ sound_dict = {
     35: ["sounds/d.wav"],
     37: ["sounds/k.wav"],
     41: ["sounds/g.wav"],
-    49: ["sounds/long_S.wav"], # todo add "sounds/ʈ.wav", before
-    38: ["sounds/d.wav", "sounds/big_three.wav"],
+    49: ["sounds/tS.wav"],
+    38: ["sounds/d3.wav"],
     42: ["sounds/r.wav"],
     50: ["sounds/j.wav"],
     44: ["sounds/w.wav"],
