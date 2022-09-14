@@ -1,3 +1,7 @@
+# Shred2Speech
+
+A speech synthesizer based on a guitar hero controller. Requires a 360 X-Plorer Controller on a windows machine to make work.
+
 ## IPA to Guitar
 
 |Symbol |Examples |Chart |#|
