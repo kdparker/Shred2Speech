@@ -15,10 +15,16 @@ def run():
 
     @guitar_controller.event
     def on_button(button, pressed):
-        guitar.button_update(button, pressed)
-        guitar.strum(button, pressed)
-        guitar.clear_store(button, pressed)
-        guitar.play_store(button, pressed)
+        if button in (13,14,15,16,9):
+            guitar.button_update(button, pressed)
+        if not pressed:
+            return
+        if button in (1,2):
+            guitar.strum(button, pressed)
+        elif button == 5:
+            guitar.clear_store()
+        elif button == 6:
+            guitar.play_store()
 
     print("Ready to Rock!")
 
