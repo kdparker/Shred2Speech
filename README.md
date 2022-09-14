@@ -14,6 +14,7 @@
 |u|Few, boot, lose, gloomy, fruit, chew.|🟢🟠⬇|17
 |ɑ|Fast, car, hard, bath.|🔴🟡⬇|6
 |ɪ|Kit, Bit, Chip|🟢🔴🟡🔵⬇|15
+|ɛ|Hello|🟢🔴🟡🔵⬆|47
 |oʊ|Hello|🔴🟡🔵🟠⬇|30
 |ɪə|Near, ear, clear, tear, beer, fear|🔴🔵⬇|10
 |eə|Hair, there, care, stairs, pear|🔴🟠⬇|18

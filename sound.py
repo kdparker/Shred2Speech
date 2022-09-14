@@ -15,6 +15,7 @@ sound_dict = {
     17: "sounds/u.wav",
     6: "sounds/weird_a.wav",
     15: "sounds/capital_I.wav",
+    47: "sounds/reverse_3.wav",
     30: "sounds/o.wav",
     10: "sounds/10.wav",
     18: "sounds/18.wav",
