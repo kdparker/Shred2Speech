@@ -76,11 +76,14 @@ def run():
         dictionary_response = requests.get(f"https://www.dictionaryapi.com/api/v3/references/learners/json/{word}?key={key}").json()
         ipas = []
         for definition in dictionary_response:
-            hwi = definition["hwi"]
-            for pronounciations in (hwi.get("prs", []) + hwi.get("altprs", [])):
-                if "ipa" in pronounciations:
-                    ipas.append(pronounciations["ipa"])
+            if "hwi" in definition:
+                hwi = definition["hwi"]
+                for pronounciations in (hwi.get("prs", []) + hwi.get("altprs", [])):
+                    if "ipa" in pronounciations:
+                        ipas.append(pronounciations["ipa"])
         ipas = set(ipas)
+        if not ipas:
+            print("No definition found on Merriam Webster")
         for ipa in ipas:
             print(f"{ipa} - {make_chart_for_ipa(ipa)}")
     
