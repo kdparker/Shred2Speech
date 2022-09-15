@@ -2,7 +2,11 @@
 
 A speech synthesizer based on a guitar hero controller. Requires a 360 X-Plorer Controller on a windows machine to make work.
 
+
 To run, run python shred2speech after installing requirements, you may find dictionary.py useful to generate charts, however you will need a merriam webster learner dictionary api key in the secrets directory to run it.
+
+Xinput from https://github.com/r4dian/Xbox-Controller-for-Python/blob/master/xinput.py
+Sounds taken and edited from http://www.phonetics.ucla.edu/course/chapter1/chapter1.html and wikipedia
 
 ## IPA to Guitar
 
