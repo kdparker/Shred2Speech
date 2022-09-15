@@ -1,7 +1,7 @@
 venv/*
-secrets/*
 *.pyc
 .DS_STORE
 .idea/*
 .mypy_chache/*
 sounds/desktop.ini
+secrets/merriamwebster

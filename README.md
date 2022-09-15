@@ -2,6 +2,8 @@
 
 A speech synthesizer based on a guitar hero controller. Requires a 360 X-Plorer Controller on a windows machine to make work.
 
+To run, run python shred2speech after installing requirements, you may find dictionary.py useful to generate charts, however you will need a merriam webster learner dictionary api key in the secrets directory to run it.
+
 ## IPA to Guitar
 
 |Symbol |Examples |Chart |#|
@@ -51,10 +53,3 @@ A speech synthesizer based on a guitar hero controller. Requires a 360 X-Plorer 
 |m|Tim|🟢🔴🟡⬆|39
 |n|Tin|🟢🔴🔵⬆|43
 |ng|Ting|🟢🟡🔵⬆|45
-
-## Example Transcriptions
-
-|Word |IPA |Chart|
-|--|--|--|
-|Hello| h ɛ l oʊ | 🔴⬆      🟢🔴🟡🔵⬆    🟡🟠⬆     🔴🟡🔵🟠⬇
-|World| w ɝ l d  | 🟡🔵⬆    🟢🟡⬇         🟡🟠⬆     🟢🔴⬆
